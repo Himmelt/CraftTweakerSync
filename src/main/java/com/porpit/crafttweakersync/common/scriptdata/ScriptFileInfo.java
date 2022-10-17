@@ -1,7 +1,6 @@
 package com.porpit.crafttweakersync.common.scriptdata;
 
 import com.porpit.crafttweakersync.util.FileHelper;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.File;
@@ -13,27 +12,27 @@ public class ScriptFileInfo implements Serializable {
     private String fileMD5;
 
 
-    public ScriptFileInfo(){}
+    public ScriptFileInfo() {
+    }
+
     public ScriptFileInfo(String filePath, String fileMD5) {
         this.filePath = filePath;
         this.fileMD5 = fileMD5;
     }
+
     public ScriptFileInfo(File file) throws Exception {
 
         this.filePath = file.getPath();
         this.fileMD5 = FileHelper.getMd5ByFile(file);
         //客户端只需存入路径信息
         //服务端需要文件数据以进行传输
-        if(FMLCommonHandler.instance().getSide().isServer()){
-            ScriptFileManager.getInstance().allScriptFiles.put(this,FileHelper.getFileBytes(file));
-        }else {
-            ScriptFileManager.getInstance().allScriptFiles.put(this,null);
+        if (FMLCommonHandler.instance().getSide().isServer()) {
+            ScriptFileManager.getInstance().allScriptFiles.put(this, FileHelper.getFileBytes(file));
+        } else {
+            ScriptFileManager.getInstance().allScriptFiles.put(this, null);
         }
 
     }
-
-
-
 
     @Override
     public boolean equals(Object o) {

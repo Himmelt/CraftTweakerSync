@@ -1,16 +1,18 @@
 [
-{
-  "modid": "crafttweakersync",
-  "name": "CraftTweakerSync,
-  "description": "CraftTweaker 's Script synchronize mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["PorPit(泼皮)"],
-  "credits": "用于自动同步服务器CraftTweaker的Script 文件到客户端",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
+  {
+    "modid": "crafttweakersync",
+    "name": "CraftTweakerSync",
+    "description": "CraftTweaker 's Script synchronize mod.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "PorPit(泼皮)"
+    ],
+    "credits": "用于自动同步服务器CraftTweaker的Script 文件到客户端",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]

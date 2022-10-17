@@ -7,7 +7,6 @@ import com.porpit.crafttweakersync.network.NetworkLoader;
 import com.porpit.crafttweakersync.util.FileHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
-
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -105,7 +104,6 @@ public class ScriptFileManager {
             allScriptFiles = new HashMap<>();
         }
         allScriptFiles.clear();
-        ;
         File scriptFile = FileHelper.getScriptDirectory();
         return FileHelper.getAllScriptData(scriptFile);
     }
@@ -153,7 +151,7 @@ public class ScriptFileManager {
         try {
             FileHelper.writeBytesToFile(new File(path), data);
             needToRestart = true;
-            if (totalEOF == true && FMLCommonHandler.instance().getSide().isClient()) {
+            if (totalEOF && FMLCommonHandler.instance().getSide().isClient()) {
                 ScriptFileManager.getInstance().addTask(new Runnable() {
                     @Override
                     public void run() {

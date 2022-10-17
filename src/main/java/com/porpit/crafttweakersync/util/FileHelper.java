@@ -9,9 +9,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class FileHelper {
     public static String getMd5ByFile(File file) throws FileNotFoundException {
@@ -87,20 +85,22 @@ public class FileHelper {
         buffer = bos.toByteArray();
         return buffer;
     }
-    public static void getFileByBytes(byte[] bfile, String filePath,String fileName) throws Exception{
+
+    public static void getFileByBytes(byte[] bfile, String filePath, String fileName) throws Exception {
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
         File file = null;
         try {
             File dir = new File(filePath);
-            if(!dir.exists()&&dir.isDirectory()){//判断文件目录是否存在
+            if (!dir.exists() && dir.isDirectory()) {
+                //判断文件目录是否存在
                 dir.mkdirs();
             }
-            file = new File(filePath+"\\"+fileName);
+            file = new File(filePath + "\\" + fileName);
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
             bos.write(bfile);
-        }finally {
+        } finally {
             if (bos != null) {
                 try {
                     bos.close();
@@ -117,6 +117,7 @@ public class FileHelper {
             }
         }
     }
+
     public static Object getObjectFromBytes(byte[] objBytes) throws Exception {
         if (objBytes == null || objBytes.length == 0) {
             return null;
@@ -128,6 +129,7 @@ public class FileHelper {
 
     /**
      * 从对象获取一个字节数组
+     *
      * @EditTime 2007-8-13 上午11:46:56
      */
     public static byte[] getBytesFromObject(Serializable obj) throws Exception {
@@ -140,37 +142,39 @@ public class FileHelper {
         return bo.toByteArray();
     }
 
-    public  static byte[] readFileToBytes(File file) throws Exception{
-        InputStream in= null;
+    public static byte[] readFileToBytes(File file) throws Exception {
+        InputStream in = null;
         try {
             in = new FileInputStream(file);    //真正要用到的是FileInputStream类的read()方法
-            byte[] bytes= new byte[in.available()];    //in.available()是得到文件的字节数
+            byte[] bytes = new byte[in.available()];    //in.available()是得到文件的字节数
             in.read(bytes);    //把文件的字节一个一个地填到bytes数组中
             return bytes;
-        }finally {
+        } finally {
             try {
                 in.close();
-            }catch (Exception e){
+            } catch (Exception e) {
             }
         }
     }
-    public  static void deleteFile(String path){
+
+    public static void deleteFile(String path) {
         File file = new File(path);
-        if(file.exists()){
+        if (file.exists()) {
             boolean d = file.delete();
-            if(d){
-                CraftTweakerSync.logger.info("删除了文件:"+path);
-            }else{
-                CraftTweakerSync.logger.info("删除文件:"+path+"失败!");
+            if (d) {
+                CraftTweakerSync.logger.info("删除了文件:" + path);
+            } else {
+                CraftTweakerSync.logger.info("删除文件:" + path + "失败!");
             }
         }
     }
-    public static void writeBytesToFile(File file, byte[] data) throws IOException{
+
+    public static void writeBytesToFile(File file, byte[] data) throws IOException {
         OutputStream out = new FileOutputStream(file);
         InputStream is = new ByteArrayInputStream(data);
         byte[] buff = new byte[1024];
         int len = 0;
-        while((len=is.read(buff))!=-1){
+        while ((len = is.read(buff)) != -1) {
             out.write(buff, 0, len);
         }
         is.close();

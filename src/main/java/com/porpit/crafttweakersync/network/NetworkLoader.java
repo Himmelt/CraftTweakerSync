@@ -14,9 +14,9 @@ public class NetworkLoader {
     private static int nextID = 0;
 
     public NetworkLoader(FMLPreInitializationEvent event) {
-        registerMessage(MessageServerFileInfo.Handler.class,MessageServerFileInfo.class,Side.CLIENT);
-        registerMessage(MessageFileRequest.Handler.class,MessageFileRequest.class,Side.SERVER);
-        registerMessage(MessageFileData.Handler.class,MessageFileData.class,Side.CLIENT);
+        registerMessage(MessageServerFileInfo.Handler.class, MessageServerFileInfo.class, Side.CLIENT);
+        registerMessage(MessageFileRequest.Handler.class, MessageFileRequest.class, Side.SERVER);
+        registerMessage(MessageFileData.Handler.class, MessageFileData.class, Side.CLIENT);
     }
 
     private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(

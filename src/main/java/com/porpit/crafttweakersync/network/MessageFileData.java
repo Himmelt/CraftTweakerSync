@@ -25,13 +25,13 @@ public class MessageFileData implements IMessage {
     @Override
     public void fromBytes(ByteBuf buf) {
         int pathlength = buf.readInt();
-        byte pathbyte[] = new byte[pathlength];
+        byte[] pathbyte = new byte[pathlength];
         buf.readBytes(pathbyte);
         path = new String(pathbyte);
-        int datalength=buf.readInt();
-        data=new byte[datalength];
+        int datalength = buf.readInt();
+        data = new byte[datalength];
         buf.readBytes(data);
-        eofFlag=buf.readBoolean();
+        eofFlag = buf.readBoolean();
     }
 
     @Override
@@ -42,6 +42,7 @@ public class MessageFileData implements IMessage {
         buf.writeBytes(data);
         buf.writeBoolean(eofFlag);
     }
+
     public static class Handler implements IMessageHandler<MessageFileData, IMessage> {
         @Override
         public IMessage onMessage(MessageFileData message, MessageContext ctx) {
@@ -49,8 +50,8 @@ public class MessageFileData implements IMessage {
                 ScriptFileManager.getInstance().addTask(new Runnable() {
                     @Override
                     public void run() {
-                        CraftTweakerSync.logger.debug("保存从服务器获取的文件"+message.path+"中");
-                        ScriptFileManager.getInstance().saveFile(message.path,message.data,message.eofFlag);
+                        CraftTweakerSync.logger.debug("保存从服务器获取的文件" + message.path + "中");
+                        ScriptFileManager.getInstance().saveFile(message.path, message.data, message.eofFlag);
                     }
                 });
             }

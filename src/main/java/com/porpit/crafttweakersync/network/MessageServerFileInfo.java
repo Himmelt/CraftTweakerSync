@@ -7,14 +7,13 @@ import com.porpit.crafttweakersync.util.FileHelper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-import java.util.*;
-import java.util.logging.Logger;
+import java.util.Arrays;
+import java.util.List;
 
 public class MessageServerFileInfo implements IMessage {
 
@@ -31,7 +30,7 @@ public class MessageServerFileInfo implements IMessage {
     public void fromBytes(ByteBuf buf) {
         try {
             int byteLength = buf.readInt();
-            byte bytes[] = new byte[byteLength];
+            byte[] bytes = new byte[byteLength];
             buf.readBytes(bytes);
             ScriptFileInfo[] scriptFileInfos = (ScriptFileInfo[]) FileHelper.getObjectFromBytes(bytes);
             scriptFileInfoList = Arrays.asList(scriptFileInfos);
@@ -49,7 +48,7 @@ public class MessageServerFileInfo implements IMessage {
         ScriptFileInfo[] scriptFileInfos = new ScriptFileInfo[scriptFileInfoList.size()];
         scriptFileInfoList.toArray(scriptFileInfos);
         try {
-            byte bytes[] = FileHelper.getBytesFromObject(scriptFileInfos);
+            byte[] bytes = FileHelper.getBytesFromObject(scriptFileInfos);
             buf.writeInt(bytes.length);
             buf.writeBytes(bytes);
         } catch (Exception e) {
@@ -80,8 +79,6 @@ public class MessageServerFileInfo implements IMessage {
                 }
 
 
-
-
                 CraftTweakerSync.logger.debug(str1);
                 CraftTweakerSync.logger.debug(str2);
                 ScriptFileManager.getInstance().addTask(new Runnable() {
@@ -93,7 +90,7 @@ public class MessageServerFileInfo implements IMessage {
                         sfm.sendScriptFileDataRequest(sList2);
                         try {
                             Thread.sleep(1000);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 

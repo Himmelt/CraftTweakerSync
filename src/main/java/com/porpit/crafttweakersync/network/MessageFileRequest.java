@@ -28,7 +28,7 @@ public class MessageFileRequest implements IMessage {
     public void fromBytes(ByteBuf buf) {
         try {
             int byteLength = buf.readInt();
-            byte bytes[] = new byte[byteLength];
+            byte[] bytes = new byte[byteLength];
             buf.readBytes(bytes);
             ScriptFileInfo[] scriptFileInfos = (ScriptFileInfo[]) FileHelper.getObjectFromBytes(bytes);
             neededFiles = Arrays.asList(scriptFileInfos);
@@ -46,7 +46,7 @@ public class MessageFileRequest implements IMessage {
         ScriptFileInfo[] scriptFileInfos = new ScriptFileInfo[neededFiles.size()];
         neededFiles.toArray(scriptFileInfos);
         try {
-            byte bytes[] = FileHelper.getBytesFromObject(scriptFileInfos);
+            byte[] bytes = FileHelper.getBytesFromObject(scriptFileInfos);
             System.out.println(neededFiles + "," + bytes);
             buf.writeInt(bytes.length);
             buf.writeBytes(bytes);
@@ -67,7 +67,7 @@ public class MessageFileRequest implements IMessage {
                 ScriptFileManager.getInstance().addTask(new Runnable() {
                     @Override
                     public void run() {
-                        ScriptFileManager.getInstance().sendScriptFileData(message.neededFiles,ctx.getServerHandler().player);
+                        ScriptFileManager.getInstance().sendScriptFileData(message.neededFiles, ctx.getServerHandler().player);
                     }
                 });
             }
